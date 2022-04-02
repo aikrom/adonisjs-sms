@@ -1,0 +1,14 @@
+/**
+ * Feel free to let us know via PR, if you find something broken in this contract
+ * file.
+ */
+
+declare module '@ioc:Adonis/Addons/Sms' {
+  import { SmsDrivers } from '@ioc:Adonis/Addons/Sms'
+
+  interface ServicesList {
+		{{#plivo}}
+    plivo: SmsDrivers['plivo'],
+		{{/smtp}}
+  }
+}

@@ -1,0 +1,52 @@
+/**
+ * Feel free to let us know via PR, if you find something broken in this contract
+ * file.
+ */
+
+import Env from '@ioc:Adonis/Core/Env'
+import { SmsConfig } from '@ioc:Adonis/Addons/Sms'
+
+const smsConfig: SmsConfig = {
+  /*
+  |--------------------------------------------------------------------------
+  | Default service
+  |--------------------------------------------------------------------------
+  |
+  | The following service will be used to send sms, when you don't specify
+  | a service
+  |
+  */
+  service: '{{primaryDriver}}',
+
+  /*
+  |--------------------------------------------------------------------------
+  | Services
+  |--------------------------------------------------------------------------
+  |
+  | You can define or more services to send sms from your application. A
+  | single `driver` can be used to define multiple services with different
+  | config.
+  |
+  | For example: Postmark driver can be used to have different services for
+  | sending transactional and promotional sms
+  |
+  */
+  services: {
+		{{#plivo}}
+    /*
+    |--------------------------------------------------------------------------
+    | Plivo
+    |--------------------------------------------------------------------------
+    */
+    plivo: {
+      driver: 'smtp',
+      authId: Env.get('PLIVO_AUTH_ID'),
+      authToken: Env.get('PLIVO_AUTH_TOKEN'),
+      from: Env.get('PLIVO_FROM'),
+    },
+
+		{{/plivo}}
+  },
+}
+
+export default smsConfig
